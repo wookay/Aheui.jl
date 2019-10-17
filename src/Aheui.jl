@@ -8,22 +8,24 @@ export 집어넣기, 뽑기, 중복, 바꿔치기
 export 선택, 이동, 비교, 조건
 export 가자, 종성획수
 
-type 진행방향
+abstract type 저장공간 end
+abstract type 커서타입 end
+
+mutable struct 진행방향
   어느쪽::Function
 end
 
-abstract 저장공간
-type 스택 <: 저장공간
+mutable struct 스택 <: 저장공간
   공간::Vector
   출력::Vector
   방향::진행방향
 end
-type 큐 <: 저장공간
+struct 큐 <: 저장공간
   공간::Vector
   출력::Vector
   방향::진행방향
 end
-type 통로 <: 저장공간
+struct 통로 <: 저장공간
   공간::Vector
   출력::Vector
   방향::진행방향
@@ -80,15 +82,14 @@ function 조건(저장::저장공간)
 end
 가자(f, a...) = f(a...)
 
-abstract 커서타입
-type 그냥내비둠 <: 커서타입
+struct 그냥내비둠 <: 커서타입
 end
-type 칸이동 <: 커서타입
+struct 칸이동 <: 커서타입
   얼만큼::Int
   어느쪽::Function
 end
 
-type 커서움직임
+mutable struct 커서움직임
   이전위치
   위치
   방향::Function
@@ -166,10 +167,10 @@ function 기능(저장::저장공간, 소리::Char, 커서::커서움직임)
   end 
 end
 
-function 아희(입력::AbstractString)
+function 아희(입력::String)
   여러줄 = split(입력, "\n")
   행,렬 = length(여러줄), maximum(map(length, 여러줄))
-  격자 = Array(Char, 행, 렬)
+  격자 = Array{Char}(undef, 행, 렬)
   for (행값,줄) in enumerate(여러줄)
     for (렬값,글자) in enumerate(줄)
       격자[행값,렬값] = 글자

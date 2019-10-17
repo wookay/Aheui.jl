@@ -1,13 +1,14 @@
-using Aheui
+module test_aheui_basic
 
-using Base.Test
+using Test
+using Aheui
 
 @test "" == 아희("")
 @test "" == 아희("아희")
 @test "" == 아희("밯망희")
 @test "45" == 아희("발밞따망희")
 @test "5" == 아희("반받다망희")
-@test "Hello, world!\n" == 아희("""\
+@test "Hello, world!\n" == 아희("""
 밤밣따빠밣밟따뿌
 빠맣파빨받밤뚜뭏
 돋밬탕빠맣붏두붇
@@ -60,3 +61,5 @@ using Base.Test
 
 가자(집어넣기, 어딘가, 0)
 어딘가 = 가자(조건, 어딘가)
+
+end # module test_aheui_basic
