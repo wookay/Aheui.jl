@@ -1,19 +1,18 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
-language: julia
-os:
-  - linux
-  #- osx
-julia:
-  - 0.4
-  - nightly
-sudo: false
 notifications:
   email: false
 
-# uncomment the following lines to override the default test script
-script:
-  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - julia -e 'Pkg.clone(pwd()); Pkg.build("Aheui"); Pkg.test("Aheui"; coverage=true)'
-  - julia --color=yes --code-coverage test/runtests.jl
+language: julia
+
+os:
+  - linux
+
+julia:
+  - 1.1
+
 after_success:
-  - julia -e 'if VERSION >= v"0.4-"; Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder()); end'
+  - if [[ "$TRAVIS_OS_NAME" == linux && "$TRAVIS_JULIA_VERSION" == 1.1 ]] ; then julia --project=. -e 'using Pkg;
+                                                                                                       Pkg.add("Coverage");
+                                                                                                       using Coverage;
+                                                                                                       Codecov.submit(process_folder())' ; fi
+~

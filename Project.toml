@@ -1,0 +1,14 @@
+name = "Aheui"
+uuid = "073c1cdb-ba79-5cf0-be0e-910e86367be0"
+authors = ["WooKyoung Noh <wookay.noh@gmail.com>"]
+version = "0.1.0"
+
+[extras]
+Jive = "ba5e3d4b-8524-549f-bc71-e76ad9e9deed"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test", "Jive"]
+
+[compat]
+julia = "≥ 1"
